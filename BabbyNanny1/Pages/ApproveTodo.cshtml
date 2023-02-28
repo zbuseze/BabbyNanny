@@ -1,0 +1,54 @@
+﻿@page
+@model BabbyNanny.Pages.ApproveTodoModel
+@{
+    ViewData["Title"] = "Approve Todos";
+}
+<link rel="stylesheet" href="~/css/create.css" />
+<h1>Approve Ads</h1>
+<h4>Confirm the post you want to publish.</h4>
+<div class="row">
+    <div class="col-lg-7 mx-auto">
+        <div class="card mt-2 mx-auto p-4 bg-light">
+            <div class="card-body bg-light">
+                <div class="container">
+                    <form method="post">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Todos[0].Task)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Todos[0].Deadline)
+                                    </th>
+                                    <th>
+                                        Is approved?
+                                    </th>
+                                    <th>
+                                        Approve
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Todos)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Task)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Deadline)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.IsApproved)</td>
+                                        <td>
+                                            @if (!item.IsApproved)
+                                            {
+                                                <input type="submit" value="Approve Todo" class="btn  btn-primary" asp-route-id="@item.Id" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@page
+@model BabbyNanny.Pages.CreateTodoModel
+@{
+    ViewData["Title"] = "Create Todo";
+    // Since DDLists aren't IEnumerable, a cast is required.
+    var CategoryListItems = ViewData["DDListCat"] as IEnumerable<SelectListItem>;
+    var PriorityListItems = ViewData["DDListPri"] as IEnumerable<SelectListItem>;
+}
+<link rel="stylesheet" href="~/css/create.css" />
+
+<div class="container">
+    <div class=" text-center mt-5 ">
+    <h1>Create Ads</h1>
+    <h4>Fill out the form below for the advertisement you want to publish.</h4>
+</div>
+    
+    <div class="row">
+        <div class="col-lg-7 mx-auto">
+            <div class="card mt-2 mx-auto p-4 bg-light">
+                <div class="card-body bg-light">
+                    <div class="container">
+                        <form method="post">
+                            <div class="form-group">
+                                Category
+                                <select asp-for="TodoCategory" asp-items="CategoryListItems" class="form-control">
+                                    <option value="null">--Select category--</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                Importance
+                                <select asp-for="TodoPriority" asp-items="PriorityListItems" class="form-control">
+                                    <option value="null">--Select priority--</option>
+                                </select>
+                            </div>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="TodoTask" class="control-label"></label>
+                                <input asp-for="TodoTask" class="form-control" />
+                                <span asp-validation-for="TodoTask" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TodoDeadline" class="control-label">Deadline (mm.dd.yyyy)</label> <!--User defined label-->
+                                <input asp-for="TodoDeadline" class="form-control" />
+                                <span asp-validation-for="TodoDeadline" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create Ad" class="btn  btn-primary" />
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

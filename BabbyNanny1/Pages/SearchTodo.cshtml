@@ -1,0 +1,103 @@
+﻿@page
+@model BabbyNanny.Pages.SearchTodoModel
+@{
+    ViewData["Title"] = "Search Todo";
+
+    // Since DDLists aren't IEnumerable, a cast is required.
+    var CategoryListItems = ViewData["DDListCat"] as IEnumerable<SelectListItem>;
+    var PriorityListItems = ViewData["DDListPri"] as IEnumerable<SelectListItem>;
+
+}
+<link rel="stylesheet" href="~/css/create.css">
+<h1>Search Ads</h1>
+<h4>Find the ad you want to search with the keywords below.</h4>
+<div class="row">
+    <div class="col-lg-7 mx-auto">
+        <div class="card mt-2 mx-auto p-4 bg-light">
+            <div class="card-body bg-light">
+                <div class="container">
+                    <form method="post">
+                        <div class="form-group">
+                            <sup>*</sup>Category
+                            <select asp-for="TodoCategory" asp-items="CategoryListItems" class="form-control">
+                                <option value="null">--Select category--</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <sup>*</sup>Priority
+                            <select asp-for="TodoPriority" asp-items="PriorityListItems" class="form-control">
+                                <option value="null">--Select priority--</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <sup>*</sup>Search Task
+                            <input type="text" asp-for="SearchString" class="form-control" />
+                            <span asp-validation-for="SearchString"></span>
+                        </div>
+                        <p><sup>*</sup>Required</p>
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </form>
+
+                    @if (Model.HasSearch)
+                    {
+                        <hr />
+                        <h2>Results of Ad</h2>
+
+                        @if (Model.SearchResults.Any())
+                        {
+                            <br />
+                            
+                            <table class="table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Task</th>
+                                        <th>Deadline</th>
+                                        <th>Category</th>
+                                        <th>Priority</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.SearchResults)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Task)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Deadline)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Category)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Priority)
+                                            </td>
+                                            <td><a asp-page="ListToDo" class="btn btn-primary">Go List Ads</a></td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        }
+                        //Optional not found message
+
+                        else
+                        {
+                            <p>No results found!</p>
+                        }
+
+                    }
+                    else
+                    {
+                       
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

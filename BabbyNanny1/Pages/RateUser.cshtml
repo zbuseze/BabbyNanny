@@ -1,0 +1,56 @@
+﻿@page
+@model BabbyNanny.Pages.RateUserModel
+@{
+    ViewData["Title"] = "Rate User";
+}
+<div class="row">
+    <div class="col-lg-7 mx-auto">
+        <div class="card mt-2 mx-auto p-4 bg-light">
+            <div class="card-body bg-light">
+                <div class="container">
+                    <form method="post">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Picture</th>
+                                    <th>email</th>
+                                    <th>Phone number</th>
+                                    <th>Average rating</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.UserRatingsList)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                        <td><img src="data:image;base64,@System.Convert.ToBase64String(item.Picture)" width="50" height="50" /></td>
+                                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                                        @if (item.AvgRating != "0")
+                                        {
+                                            <td>
+                                                <p>User rating: @item.AvgRating/5.0</p>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <p>User has no rating</p>
+                                            </td>
+                                        }
+                                        <td>
+                                            <a class="btn btn-primary" asp-page="AddRating" asp-route-ratedUserID="@item.UserId">Rate User</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
